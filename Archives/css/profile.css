@@ -1,0 +1,60 @@
+div.profile-container{
+    padding-top: 100px;
+    width: 800px;
+    margin-left: calc((100vw / 2) - (800px/2));
+}
+div.profile-padding{
+    width: inherit;
+    height: 10px;
+    opacity: 0;
+}
+div.profile-content-container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: inherit;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+div.profile-content img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: 50px;
+    margin-top: 30px;
+}
+div.profile-content span{
+    position: relative;
+    left: 20px; 
+    top: -70px;
+    font-size: .5cm;
+}
+div.posted-number{
+    position: relative;
+    top: -2.0cm;
+    left: 600px;
+    width: 120px;
+}
+div.posted-number span{
+    width: 120px;
+
+}
+div.storage-used{
+    position: relative;
+    width: 100px;
+    left: 600px;
+    width: 200px;
+}
+div.storage-used span{
+    width: 200px;
+}
+div.edit-profile a{
+    text-decoration: none;
+    position: relative;
+    top: -2cm;
+    left: 215px;
+    padding: 10px;
+    border-radius: 5px;
+}
+div.edit-profile a:hover{
+    background-color:bisque;
+}

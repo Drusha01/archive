@@ -1,0 +1,104 @@
+div.login-container{
+    width: 450px;
+    height: 370px;
+    border-radius: 10px;
+    margin-left: calc((100vw / 2) - (450px / 2 ));
+    margin-top: calc((100vh / 2) - (450px / 2 ));
+    background-color: gray;
+}
+div.login-form{
+    width: 450px;
+    height: 370px;
+    border-radius: 10px;
+    background-color: gray;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+div.login-form-padding{
+    width: gray;
+    height: 30px;
+    visibility: hidden;
+}
+div.login-form-name{
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: inherit;
+    font-size: .5cm;
+    text-align: center;
+    color: white;
+}
+div.input{
+    padding: 5px;
+    padding-left: 25px;
+    width: 400px;
+    background-color: gray;
+}
+div.input label{
+    margin: 5px;
+    background-color: gray;
+    color: white;
+    
+}
+div.input input{
+    width: inherit;
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+div.submit{
+    margin-top: 20px;
+    padding: 5px;
+    padding-left: 25px;
+    padding-bottom: 25px;
+    width: 400px;
+    background-color: gray;
+    }
+div.submit input{
+    width: inherit;
+    height: 40px;
+    padding-left: 10px;
+    border-radius: 5px;
+}
+div.submit input:hover{
+    background-color: gray;
+    color: white;
+}
+div.forgot-password{
+    position: relative;
+    left: 40px;
+    width: 150px;
+    background-color: gray;
+}
+div.forgot-password a{
+    text-decoration: none;
+    color:blue ;
+    font-size: .4cm;
+    background-color: gray;
+    color: blue;
+}
+div.vertical-line{
+    height: 25px;
+    width: 1px;
+    color: black;
+    background-color: white;
+    position: relative;
+    left: 230px;
+    top: -20px;
+}
+div.signup{
+    position: relative;
+    left: 300px;
+    top: -40px;
+    width: 100px;
+    background-color: gray;
+}
+div.signup a{
+    text-decoration: none;
+    color:blue ;
+    font-size: .4cm;
+    width: 100px;
+    background-color: gray;
+}
+form{
+    background-color: gray;
+}

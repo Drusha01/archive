@@ -1,0 +1,104 @@
+
+
+/*  navigation  */
+:root{
+    --content-container-width:800px;
+    /* note that media will not take effect on this */
+}
+
+@media only screen and (max-width: 1340px) {
+    div.navigation-container {
+        display: none;
+    }
+}
+div.navigation-container{
+    width: 250px;
+    height: 100%;
+    margin-top: 100px;
+    position: fixed;
+}
+div.navigation-container-padding{
+    width: 200px;
+    height: 10px;
+}
+div.navigation-item a{
+    text-decoration: none;
+    color: black;
+}
+div.navigation-item-content{
+    margin-left: 10px;
+    width: 240px;
+    height: 60px;
+    border-radius: 15px;
+}
+div.navigation-item-content:hover{
+    background-color: #E1E1E0;
+    border-radius: 10px;
+    
+}
+div.navigation-item-content img{
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: inherit;
+}
+div.navigation-item-content span{
+    position: relative;
+    left: 20px;
+    top: -5px;
+    font-size: .4cm;
+    font-weight: 900;
+    background-color: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+div.navigation-item-content-active{
+    margin-left: 10px;
+    width: 240px;
+    height: 60px;
+    border-radius: 15px;
+    background-color: #E1E1E0;
+}
+div.navigation-item-content-active img{
+    position: relative;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: inherit;
+}
+div.navigation-item-content-active span{
+    position: relative;
+    left: 20px;
+    top: -5px;
+    font-size: .4cm;
+    font-weight: 900;
+    background-color: inherit;
+}
+
+div.navigation-item-logout{
+    position: absolute;
+    bottom: 100px;
+    left: 0px; 
+}
+div.navigation-item-logout a{
+    text-decoration: none;
+    color: black;
+}
+
+div.navigation-content hr{
+    margin-top: 10px;
+}
+
+
+/* end of navigation */
+
+
+
