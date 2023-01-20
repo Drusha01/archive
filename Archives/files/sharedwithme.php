@@ -31,12 +31,14 @@ if(isset($_SESSION['user_status'])&& $_SESSION['user_status'] == 'active' && iss
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/content.css">
 </head>
 <body>
 <?php
 $sharedwithme = '-active';
 require_once '../includes/navigation.php';
+require_once '../includes/sidebar.php';
 ?>
 <?php 
 

@@ -33,11 +33,11 @@ if(isset($_SESSION['id'])){
         if(isset($result['user_profile_picture'])){
             $_SESSION['profile_picture'] = $result['user_profile_picture'];
         }else{
-            $_SESSION['profile_picture'] = "default.jpg";
+            $_SESSION['profile_picture'] = "default.png";
         }
        
         // go to files
-        header('location:../files/files.php');
+        header('location:../files/publicarchives.php');
     }else{
         $errorPassword = "Invalid Password";
     }

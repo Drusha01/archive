@@ -122,7 +122,7 @@ if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 'active' && i
           // resize image as jpg
           $counter++;
         }
-      //header('location:../files/files.php');
+      header('location:../files/files.php');
       }
 
     }
@@ -143,107 +143,14 @@ if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 'active' && i
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
-    <style>
-        div.file-container{
-            padding-left: 1%;
-            padding-top: 1%;
-            width: 700px;
-            height: 600px;
-            background-color: gray;
-            overflow-y: scroll;
-            border-radius: 10px;
-        }
-        div.file-item-container {
-            width: 48%;
-            display: inline-block;
-            margin: 2px;
-            background-color: inherit;
-        }
-        div.file-list{
-            background-color: inherit;
-        }
-        div.file-list img{
-            background-color: inherit;
-        }
-        div.file-list textarea{
-        }
-        div.file-item-container img{
-            width: 100%;
-            max-height: 300px;
-            height: 300px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
-        div.file-item-container textarea{
-            width: calc(100% - 1px );
-            height: 120px;
-            border-radius: 10px;
-            padding-top: 5px;
-            padding-left: 5px;
-            margin-top: 10px;
-        }
-
-        button.delete{
-            position: relative;
-            top: 25px;
-            left: 300px;
-            border-radius: 5px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%
-        }
-        button.delete:hover{
-            background-color: gray;
-            color: aliceblue;
-        }
-
-        div.file-item-container-last {
-            width: 48%;
-            display: inline-block;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        div.file-item-container-last img{
-            width: 100%;
-        }
-        div.file-item-container-last textarea{
-            width: 100%;
-            height: 120px;
-        }
-        form{
-          margin-left: calc((100vw / 2) - 700px /2);
-          padding-top: 130px;
-        }
-        
-        input.title{
-          width: 690px;
-          height: 30px;
-          border-radius: 5px;
-        }
-        button.deleteall{
-          position: relative;
-          left:650px;
-          height: 30px;
-          width:30px;
-          border-radius: 50%;
-          border-color: black;
-        }
-        button.deleteall:hover{
-          background-color: gray;
-            color: aliceblue;
-            border-color: white;
-        }
-        div.form-padding{
-          width: 100vw;
-          height: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/addarchive.css">
 </head>
 <body id ="body">
 <?php
     $addarchive = '-active';
     require_once '../includes/navigation.php';
+    require_once('../includes/sidebar.php');
 ?>
   <form action="" method="post" enctype="multipart/form-data">
     <input type="text" name="title" class="title" placeholder="Enter title" required>

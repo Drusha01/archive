@@ -21,6 +21,16 @@ if(isset($_SESSION['id'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <style>
+        table{
+            position: relative;
+            margin-left: calc((100vw/2) - (600px/2));
+            margin-top: 100px;
+        }
+    </style>
 </head>
 <body>
 
@@ -41,16 +51,16 @@ require_once '../includes/navigation.php';
     
     
     <?php
-        $result = mysqli_query($dbc, "SELECT user_id,user_status_details,user_type_details,user_name,user_firstname,user_lastname from users
+        $result = mysqli_query($dbc, "SELECT user_id,user_status_details,user_type_details,user_email,user_firstname,user_lastname from users
         LEFT OUTER JOIN user_status ON users.user_status_id=user_status.user_status_id
         LEFT OUTER JOIN user_types ON users.user_type_id=user_types.user_type_id
-        WHERE user_name != BINARY 'Hanrickson';");
+        WHERE user_email != BINARY 'hanz.dumapit53@gmail.com';");
     if ($result) {
         $counter =1;
         while($res =mysqli_fetch_array($result)){
             echo '<tr>';
             echo '<td>' . $counter . '</td>';
-            echo '<td>'.$res["user_name"].'</td>';
+            echo '<td>'.$res["user_email"].'</td>';
             echo '<td>'.$res["user_firstname"].'</td>';
             echo '<td>'.$res["user_lastname"].'</td>';
             echo '<td>'.$res["user_status_details"].'</td>';

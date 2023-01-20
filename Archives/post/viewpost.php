@@ -2,18 +2,70 @@
 session_start();
 // check if logged in
 if(isset($_SESSION['user_status'])&& $_SESSION['user_status'] == 'active' && isset($_SESSION['id'])){
-    echo $_SESSION['id'];
-    echo '<br>';
-    echo $_SESSION['username'];
-    echo '<br>';
-    echo $_SESSION['firstname'];
-    echo '<br>';
-    echo $_SESSION['lastname'];
-    echo '<br>';
+    // view post, if the session id == post_user_id  then you can edit. 
+// get post id, session id.
+$post_id = $_GET['id'];
+$user_id = $_SESSION['id'];
+if(isset($_GET['index'])){
+    $index = $_GET['index'];
+}else{
+    $index = 0;
+}
+$index =
+// note that post
+include_once("../mysqlconfig_connection.php");
+// get target types
+$result = mysqli_query($dbc, "SELECT target_type_details FROM target_type;");
+$res_type = mysqli_fetch_all($result);
+echo '<br>';
+print_r($res_type);
+echo '<br>';
+
+// get the post 
+$result = mysqli_query($dbc, "SELECT post_id,post_status_details,post_user_id,user_firstname,user_lastname,user_profile_picture,target_type_details,post_uuid,post_date_posted FROM posts 
+LEFT OUTER JOIN users ON posts.post_user_id=users.user_id
+LEFT OUTER JOIN target_type ON posts.post_target_type=target_type.target_type_id
+LEFT OUTER JOIN post_status ON posts.post_status_id=post_status.post_status_id
+WHERE post_id = '$post_id';");
+$res_post = mysqli_fetch_array($result);
+
+// check post 
+
+// public
+if($res_post['target_type_details'] == 'public'){
+    // just show it
+    echo 'public :<br>';
+    print_r($res_post);
+}else if($res_post['target_type_details'] == 'followers'){
+    // followers
+    echo 'followers :<br>';
+    print_r($res_post);
+    // query from followers  (post user id and session id )
+}else if ($res_post['target_type_details'] == 'followers-except'){
+    // followers-except
+    echo 'followers-except :<br>';
+    print_r($res_post);
+    // from inserted queries (refer from add archive)
+}else if($res_post['target_type_details'] == 'specific-followers'){
+    // specific-followers
+    echo 'followers-except :<br>';
+    print_r($res_post);
+    // from inserted queries (refer from add archive)
+}else if($res_post['target_type_details'] == 'only-me'){
+    // only me
     
-    echo ' files';
-    
-    echo 'add files';
+    // dont show, only if (post user id  == session id)
+    if($_SESSION['id'] == $res_post['post_user_id']){
+        echo 'only me :<br>';
+        print_r($res_post);
+    }else{
+        // page 404
+        header("location:not found");
+        die(0);
+    }
+}
+
+// check for index. 
 }else if(!isset($_SESSION['id'])){
     header('location:../login/login.php ');
 }else if(isset($_SESSION['user_status']) && $_SESSION['user_status'] == 'inactive'){
@@ -28,78 +80,28 @@ if(isset($_SESSION['user_status'])&& $_SESSION['user_status'] == 'active' && iss
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View post</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
 </head>
 <body>
 <?php 
 require_once '../includes/navigation.php';
+require_once '../includes/sidebar.php';
 ?>
 
-<h4>View post</h4>
 
-<div class="container">
-    <div class="header">
-        <h4>DATE</h4>
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" value="nice">
-        <h5>Shared with</h5>
-        <div class="box" width="200px" heigth="200px">
-            <div class="item">Hanrickson</div>
-            <div class="item">Hanrickson</div>
-            <div class="item">Hanrickson</div>
-        </div>
-    </div>
-    <h4>Content</h4>
-    <div class="content-container">
-        <img src="../Archive/Hanrickson9/2023-12-22/nice/1_2_IMG20210106154013.jpg" alt="" width="200" height="200" style="object-fit: cover;">
-        <img src="../Archive/Hanrickson9/2023-12-22/nice/1_2_IMG20210106154013.jpg" alt="" width="200" height="200" style="object-fit: cover;">
-        <img src="../Archive/Hanrickson9/2023-12-22/nice/1_2_IMG20210106154013.jpg" alt="" width="200" height="200" style="object-fit: cover;">
-        <img src="../Archive/Hanrickson9/2023-12-22/nice/1_2_IMG20210106154013.jpg" alt="" width="200" height="200" style="object-fit: cover;">
-    </div>
-</div>
+
+
 
 <?php
-if(isset($_GET['id'])){
-    $post_id = $_GET['id'];
-    $user_id = $_SESSION['id'];
-    include_once("../mysqlconfig_connection.php");
-    $result = mysqli_query($dbc, "SELECT post_id,post_title,CAST(post_date_posted AS DATE) AS post_date_posted,post_date_updated FROM posts
-    WHERE post_id = '$post_id' AND post_user_id = '$user_id';");
-    if(mysqli_num_rows($result)>0){
-        $res = mysqli_fetch_array($result);
-        $dir = $_SESSION['username'] . '/' . $res['post_date_posted'] . '/'.$res['post_title'].'/';
-        echo ' <h3>' . $res['post_date_posted'] . ' <a href="../post/viewpost.php?id='.$res['post_id'].'">' . $res['post_title'] . '</a></h3>';
-        echo '<h4>Content</h4>';
-
-        $result_content = mysqli_query($dbc, "SELECT content_id,content_name FROM contents WHERE content_post_id = '$post_id';");
-        if($result_content){
-            echo '<ul>';
-            while ($res_content = mysqli_fetch_array($result_content)){
-                //echo '<li>' .$res_content['content_id'].' '.$res_content['content_name']. '</li>';
-                echo '<img src="../Archive/'.$dir.$res_content["content_name"].'" alt="" width="200" height="200" style="object-fit: cover;">';
-            }
-            echo '</ul>';
-        }
 
 
-        echo '<h4>Shared to</h4>';
-        $result_targetusers = mysqli_query($dbc, "SELECT user_id,user_name,user_firstname,user_lastname,access_type_details FROM targets
-        LEFT OUTER JOIN access_types ON targets.target_access_type_id=access_types.access_type_id
-        LEFT OUTER JOIN users ON targets.target_user_id = users.user_id
-        WHERE target_post_id ='$post_id';");
-        if($result){
-            echo '<ul>';
-            while($res_target = mysqli_fetch_array($result_targetusers)){
-                echo '<li>'.$res_target['user_name'].'</li>';
-            }
-            echo '</ul>';
-        }
-    }
-} 
+
 
 
     
 ?>
 </body>
 </html>
-
-post id, title, target

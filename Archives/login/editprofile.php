@@ -14,7 +14,7 @@ if(isset($_SESSION['id'])){
             include_once("../mysqlconfig_connection.php");
             $user_id  = $_SESSION['id'];
             // update profile
-            if($_FILES['file']['size'] > 500 && $_FILES['file']['size'] < 26214400){
+            if($_FILES['file']['size'] > 125 && $_FILES['file']['size'] < 26214400){
                 $length=(strlen($_FILES['file']['name']));
                 $length2 = $length;
                 $ext;
@@ -29,11 +29,15 @@ if(isset($_SESSION['id'])){
                     if($ext== $value){
                         $dir = dirname(__DIR__, 1).'/img/profile';
                         $resizedir = dirname(__DIR__, 1).'/img/profileresize';
+                        $resizedirthumb = dirname(__DIR__, 1).'/img/thumb';
                         if ( !$dir) {
                             mkdir($dir);       
                         }
                         if ( !$resizedir) {
                             mkdir($resizedir);       
+                        }
+                        if ( !$resizedirthumb) {
+                            mkdir($resizedirthumb);       
                         }
                         
                         
@@ -41,21 +45,24 @@ if(isset($_SESSION['id'])){
                         $result = mysqli_query($dbc,"SELECT user_profile_picture FROM users
                         WHERE user_id = '$user_id';");
                         $result = mysqli_fetch_array($result);
-                        if($result['user_profile_picture']){
+                        if($result['user_profile_picture']!= 'default.jpg' || $result['user_profile_picture']!= 'default.png'){
                             // delete
-                            try {
+                            if(file_exists($dir.'/'.$result['user_profile_picture'])){
                                 unlink($dir.'/'.$result['user_profile_picture']);
-                            } catch (Exception $e) {        // do something for this
                             }
-                            try {
+                            if(file_exists($resizedir.'/'.$result['user_profile_picture'])){
                                 unlink($resizedir.'/'.$result['user_profile_picture']);
-                            } catch (Exception $e) {        // do something for this
-                            }                   
+                            }
+                            if(file_exists($resizedirthumb.'/'.$result['user_profile_picture'])) {
+                                unlink($resizedirthumb.'/'.$result['user_profile_picture']);
+                            }
+                                              
                         }
                         // check if null 
                         $imageName = $_SESSION['id'].'_'.md5($_FILES['file']['name']).'.jpg';
                         $newFileName = $dir.'/'.$imageName;
                         $newFileNameResize = $resizedir.'/'.$imageName;
+                        $newFileNameResizeThumb = $resizedirthumb.'/'.$imageName;
                         //move_uploaded_file($_FILES['file']['tmp_name'], $newFileName);
                         switch($value){
                             case 'png':
@@ -94,6 +101,15 @@ if(isset($_SESSION['id'])){
 
                         imagecopyresized($thumb, $img, 0, 0, 0, 0,$newwidth, $newheight, $width, $height);
                         imagejpeg($thumb,$newFileNameResize,80);
+
+                        $img = imagecreatefromjpeg($newFileName);
+                        $img =imagecrop($img, ['x' => $x, 'y' => $y, 'width' => $width, 'height' => $height]);
+                        $newwidth = 150;
+                        $newheight = 150;
+                        $thumb = imagecreatetruecolor($newwidth, $newheight);
+
+                        imagecopyresized($thumb, $img, 0, 0, 0, 0,$newwidth, $newheight, $width, $height);
+                        imagejpeg($thumb,$newFileNameResizeThumb,80);
                         //
 
                         break;
@@ -143,6 +159,7 @@ if(isset($_SESSION['id'])){
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <style>
         div.profile-container{
             padding-top: 100px;
@@ -202,6 +219,7 @@ if(isset($_SESSION['id'])){
 <?php
 $profile = '-active';
 require_once '../includes/navigation.php';
+require_once('../includes/sidebar.php');
 ?>
 <div class="profile-container">
     <div class="profile-padding"></div>
@@ -219,6 +237,7 @@ require_once '../includes/navigation.php';
         </div>
     </div>
     <div class="profile-padding"></div>
+    
 </div>
 
 

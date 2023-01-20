@@ -1,10 +1,33 @@
 /* header */
 div.header{
     width: 100%;
-    height: 100px;
+    height: 50px;
     background-color: gray;
     position: fixed;
     top: 0px;
     z-index: 1;
+    min-width: 1250px;
 }
+
+ul.header{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-right: 20px;
+    margin-top: 7px;
+    background-color: gray;
+}
+ul li{
+    background-color: gray;
+    display: inline;
+    padding-left: 10px;
+    width: 25px;
+}
+li img {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    
+}
+
 /* end of header */

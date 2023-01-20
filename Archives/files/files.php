@@ -35,6 +35,7 @@ if(isset($_SESSION['user_status'])&& $_SESSION['user_status'] == 'active' && iss
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/content.css">
 </head>
 <body>
@@ -42,6 +43,7 @@ if(isset($_SESSION['user_status'])&& $_SESSION['user_status'] == 'active' && iss
 <?php
 $files = '-active';
 require_once '../includes/navigation.php';
+require_once '../includes/sidebar.php';
 ?>
 <?php
 include_once("../mysqlconfig_connection.php");
@@ -58,15 +60,15 @@ if (mysqli_num_rows($result)>0) {
         $dir = $_SESSION['user_email'] . '/' . $res['post_uuid'] . '/'.$res['post_id'].'/';
         echo '  <div class="content-item">
                     <div class="owner">
-                        <a href="#profile"><img src="../img/profileresize/'.$_SESSION['profile_picture'].'" alt="" class="profilepicture">
+                        <a href="../login/viewprofile.php?id='.$_SESSION['id'].'"><img src="../img/profileresize/'.$_SESSION['profile_picture'].'" alt="" class="profilepicture">
                         <span>'.$_SESSION['firstname'].' '.$_SESSION['lastname'].'</span><p>'.$res['post_date_posted_date'] .'</p></a>
                         <img src="/../../6zfm6y.jpg" alt="" class="sharedto">
                         <div class="option">
-                            <img src="/../../6zfm6y.jpg" alt="" class="option">
+                            <img src="../assets/option.png" alt="" class="option">
                         </div> 
                     </div>
                     <div class="content-item-title">
-                        <a href="#title"><p>'.$res['post_title'].'</p></a>
+                        <a href="../post/viewpost.php?id='.$res['post_id'].'"><p>'.$res['post_title'].'</p></a>
                     </div>
                     <div class="content-item-padding"></div>';
         

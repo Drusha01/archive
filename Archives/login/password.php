@@ -52,6 +52,7 @@ if(isset($_POST['save']) && isset($_POST['currentpassword'])&& isset($_POST['pas
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/header.css">
     <link rel="stylesheet" href="../css/navigation.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
     <link rel="stylesheet" href="../css/password.css">
 </head>
 <body>
@@ -59,6 +60,7 @@ if(isset($_POST['save']) && isset($_POST['currentpassword'])&& isset($_POST['pas
 <?php
 $password = '-active';
 require_once '../includes/navigation.php';
+require_once('../includes/sidebar.php');
 ?>
     <div class="change-password-padding"></div>
     <div class="change-password-container">

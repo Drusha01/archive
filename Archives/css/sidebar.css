@@ -1,0 +1,126 @@
+@media only screen and (max-width: 1340px) {
+    div.side-bar-container {
+        display: none;
+    }
+}
+
+
+div.side-bar-container{
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    margin-top: 50px;
+    width: 250px;
+    height: 100vh;
+
+}
+hr.follow-container{
+    width: inherit;
+    height: 1px;
+    margin-top: 5px;
+    margin-top: 5px;
+}
+div.side-bar-padding{
+    height: 100px;
+}
+a.follow-request-item{
+    height: 10px;
+    width: 250px;
+    text-decoration: none;
+    background-color: inherit;
+}
+a.follow-request-item:hover{
+    background-color: #E1E1E0;
+    
+}
+a.see-all{
+    position: relative;
+    top: -15px;
+    left: 190px;
+    text-decoration: none;
+    font-size: .45cm;
+}
+div.follow-request-title{
+    padding-top: 5px;
+    font-size: .5cm;
+    position: relative;
+    top: 5px;
+    
+}
+div.follow-request-item{
+    height: 120px;
+    border-radius: 10px;
+}
+
+div.name{
+    position: relative;
+    top: -40px;
+    left: 60px;
+    color: black;
+    font-weight: 600;
+    width: 150px;
+    height: auto;
+    background-color: inherit;
+}
+div.follow-request-item:hover{
+    background-color: #E1E1E0;
+}
+div.date-time{
+    position: relative;
+    top: -60px;
+    left: 215px;
+    width: 30px;
+    color: rgb(55, 104, 238);
+    background-color: inherit;
+}
+div.mutual-followers{
+    position: relative;
+    top: -50px;
+    left: 60px;
+    color: black;
+    background-color: inherit;
+}
+
+img.follow-request-item{
+    margin: 5px;
+    border-radius: 50%;
+    background-color: inherit;
+    width: 50px;
+    height: 50px;
+}
+a.confirm{
+    text-decoration: none;
+    background-color: rgb(55, 104, 238);
+    width: 120px;
+    height: 20px;
+    text-align: center;
+    color: white;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 30px;
+    border-radius: 10px;
+    position: relative;
+    top: -30px;
+    margin-left: 5px;
+}
+
+
+
+a.delete{
+    text-decoration: none;
+    background-color: rgb(185, 186, 189);
+    width: 120px;
+    height: 20px;
+    text-align: center;
+    color: rgb(3, 0, 0);
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 30px;
+    border-radius: 10px;
+    position: relative;
+    margin-left: 5px;
+    top: -30px;
+}
+

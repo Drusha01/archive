@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-print_r($_POST);
+//print_r($_POST);
 if(isset($_SESSION['id'])){
     header('location:../files/files.php ');
 }else if (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirmpassword'])){
@@ -45,14 +45,16 @@ if(isset($_SESSION['id'])){
                 // insert to the table
                 $result = mysqli_query($dbc, "INSERT INTO users VALUES(
                 null,
-                (SELECT user_status_id FROM user_status WHERE user_status_details = 'inactive'),
+                (SELECT user_status_id FROM user_status WHERE user_status_details = 'active'),
                 (SELECT user_type_id FROM user_types WHERE user_type_details = 'normal'),
                 '$email',
                 '$password',
                 '$fname',
                 '$lname',
                 0,
-                null
+                'default.png',
+                now(),
+                now()
                 );");
 
                 if ($result) {
@@ -70,8 +72,10 @@ if(isset($_SESSION['id'])){
                         $_SESSION['user_email'] = $email;
                         $_SESSION['firstname'] = $fname;
                         $_SESSION['lastname'] = $lname;
+                        $_SESSION['profile_picture'] = "default.png";
+            
                         // go to files
-                        header('location:../files/files.php');
+                        header('location:../login/editprofile.php');
                     }else{
                         echo 'error';
                     }
@@ -121,32 +125,32 @@ if(isset($_SESSION['id'])){
                 <div class="input">
                 <label for="firstname">Firstname</label>
                     <br>
-                    <input type="text" name="firstname" id="firstname" value="<?php if(isset($fname)){echo $fname;}?>" placeholder="<?php if(isset($errorfname)){echo $errorfname;}else echo 'Enter Firstname'?>" required>
+                    <input type="text" name="firstname" id="firstname" onkeyup="myfunctionvalidate()"value="<?php if(isset($fname)){echo $fname;}?>" placeholder="<?php if(isset($errorfname)){echo $errorfname;}else echo 'Enter Firstname'?>" required>
                 </div>
                 <div class="input">
                 <label for="lastname">Lastname</label>
                     <br>
-                    <input type="text" name="lastname" id="lastname" value="<?php if(isset($lname)){echo $lname;}?>" placeholder="<?php if(isset($errorlname)){echo $errorlname;}else echo 'Enter Lastname'?>" required>
+                    <input type="text" name="lastname" id="lastname" onkeyup="myfunctionvalidate()" value="<?php if(isset($lname)){echo $lname;}?>" placeholder="<?php if(isset($errorlname)){echo $errorlname;}else echo 'Enter Lastname'?>" required>
                 </div>
 
                 <div class="input">
                     <label for="username">Email</label>
                     <br>
-                    <input type="email" name="email" id="email" value="<?php if(isset($email)){echo $email;}?>" placeholder="<?php if(isset($errorEmail)){echo $errorEmail;}else echo 'Enter Email'?>" required>
+                    <input type="email" name="email" id="email" onkeyup="myfunctionvalidate()" value="<?php if(isset($email)){echo $email;}?>" placeholder="<?php if(isset($errorEmail)){echo $errorEmail;}else echo 'Enter Email'?>" required>
                     
                 </div>
                 <div class="input">
                     <label for="password">Password</label>
                     <br>
-                    <input type="password" name="password" id="password" placeholder="<?php if(isset($errorPassword)){echo $errorPassword;}else echo 'Enter Password'?>" minlength="12" required >
+                    <input type="password" name="password" id="password"  onkeyup="myfunctionvalidate()" placeholder="<?php if(isset($errorPassword)){echo $errorPassword;}else echo 'Enter Password'?>" minlength="12" required >
                 </div>
                 <div class="input">
                     <label for="confirmpassword">Confirm Password</label>
                     <br>
-                    <input type="password" name="confirmpassword" id="confirmpassword" placeholder="<?php if(isset($errorconfirmpassword)){echo $errorconfirmpassword;}else echo 'Confirm Password'?>" minlength="12" required >
+                    <input type="password" name="confirmpassword" id="confirmpassword"  onkeyup="myfunctionvalidate()" placeholder="<?php if(isset($errorconfirmpassword)){echo $errorconfirmpassword;}else echo 'Confirm Password'?>" minlength="12" required >
                 </div>
                 <div class="submit">
-                    <input type="submit" value="SIGN UP" name="SIGN UP">
+                    <input type="submit" id="submit" value="SIGN UP" name="SIGN UP" disabled>
                 </div>
                 <div class="login">
                     <a href="login.php">Login?</a>
@@ -158,3 +162,116 @@ if(isset($_SESSION['id'])){
     
 </body>
 </html>
+<script>
+    function myfunctionvalidate(){
+        console.log('nice');
+        let firstname = document.getElementById("firstname").value.length;
+        let lastname = document.getElementById("lastname").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+        let confirmpassword = document.getElementById("confirmpassword").value;
+        let submit = document.getElementById("submit");
+        console.log(firstname);
+        if((firstname) == 0 || lastname == 0 || !ValidateEmail(email) || !ValidatePasswordLength(password) || !ValidatePasswordUppercase(password) || !ValidatePasswordLowercase(password)
+        || !ValidatePasswordIsnum(password) || !validatedPassowrdConfirmPassword(password,confirmpassword)){
+            submit.disabled = true;
+            if((firstname) == 0){
+                submit.setAttribute('value','Invalid firstname');
+            }
+            if(lastname == 0){
+                submit.setAttribute('value','Invalid lastname');
+            }
+            if(!ValidateEmail(email)){
+                submit.setAttribute('value','Invalid email');
+            }
+            if(!ValidatePasswordLength(password)){
+                submit.setAttribute('value','Password length must be >=12');
+            }
+            if(!ValidatePasswordUppercase(password)){
+                submit.setAttribute('value','Password must have uppercase letter');
+            }
+            if(!ValidatePasswordLowercase(password)){
+                submit.setAttribute('value','Password must have lowercase letter');
+            }
+            if(!ValidatePasswordIsnum(password)){
+                submit.setAttribute('value','Password must have number letter');
+            }
+            if(!validatedPassowrdConfirmPassword(password,confirmpassword)){
+                submit.setAttribute('value','Password don\'t match');
+            }
+        }else{
+            submit.disabled = false;
+            submit.setAttribute('value','SIGN UP');
+        }
+        // }else{
+            
+        //     if (firstname == 0){
+        //         submit.setAttribute('value','Invalid firstname');
+        //     } 
+        //     if (lastname == 0){
+        //         console.log(parseInt(lastname));
+        //     }
+        //     if (!ValidateEmail(email)){
+        //         submit.setAttribute('value','Invalid email');
+        //     }
+        //     if (!ValidatePasswordLength(password)){
+        //         submit.setAttribute('value','Password length more than or equal to 12');
+        //     }
+        //     document.getElementById("submit").disabled = true;
+            
+        // }
+       
+    }
+    function ValidateEmail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)){
+        // ajax email??
+        return (true)
+    }
+        return (false)
+    }
+    function ValidatePasswordLength(password){
+        if(password.length <12){
+            return false;
+        }
+        return true;
+    }
+    function ValidatePasswordUppercase(password){
+        for (let i = 0; i < password.length; i++) {
+            if(password[i] == password[i].toUpperCase()){
+                return true;
+            }
+        }
+        return false;
+    }
+    function ValidatePasswordLowercase(password){
+        for (let i = 0; i < password.length; i++) {
+            if(password[i] == password[i].toLowerCase()){
+                return true;
+            }
+        }
+        return false;
+    }
+    function ValidatePasswordIsnum(password){
+        for (let i = 0; i < password.length; i++) {
+            if(isNumber(password[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+    function isNumber(char) {
+        return /^\d$/.test(char);
+    }
+    function validatedPassowrdConfirmPassword(password,confirmpassword){
+        return password  === confirmpassword;
+    }
+    function ValidatePassword(password){
+        if(password.length <12){
+            return false;
+        }else if(0){
+            return false;
+        }
+    }
+
+
+</script>

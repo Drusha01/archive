@@ -1,10 +1,13 @@
-
+:root{
+    --content-container-width:800px;
+    /* note that media will not take effect on this */
+}
 
 /* content */
 div.content-container{
     width: var(--content-container-width);
     background-color: blue;
-    margin-top: 100px;
+    margin-top: 30px;
     margin-left: calc((100vw / 2) - var(--content-container-width) / 2);
     position: absolute;
     padding-bottom: 25px;
@@ -80,15 +83,15 @@ div.option{
     width: 20px;
     border-radius: 50%;
 }
-div.option:hover{
-    background-color: #E1E1E0;
-    
-}
+
 div.option img.option{
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border-radius: 50px;
     position: relative;
+}
+div.option img.option:hover{
+    background-color: rgb(182, 182, 182);
 }
 div.content-item-title a{
     position: relative;
