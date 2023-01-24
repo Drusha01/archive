@@ -21,12 +21,13 @@ if (isset($_SESSION['user_status']) && $_SESSION['user_status'] == 'active' && i
     $res = mysqli_fetch_array($result);
     if(!isset($res['follower_status_details']) &&  $follow_detail == 'Follow'){
         // insert to follow table
+        // note the default here here it is requested
         $result = mysqli_query($dbc, "INSERT INTO followers VALUES
         (
             null,
             $follower_user_id,
             $follower_follow_to_id,
-            (SELECT follower_status_id FROM follower_status WHERE follower_status_details = 'active'),
+            (SELECT follower_status_id FROM follower_status WHERE follower_status_details = 'requested'),  
             now()
         );");
         if($result){
