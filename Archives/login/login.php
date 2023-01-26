@@ -1,6 +1,8 @@
 <?php 
 session_start();
 
+require_once '../vendor/autoload.php';
+
 // check if we are logged in 
 if(isset($_SESSION['id'])){
     header('location:../files/files.php ');
@@ -52,6 +54,7 @@ if(isset($_SESSION['id'])){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="53523092857-46kpu1ffikh67k7kckngcbm6k7naf8ic.apps.googleusercontent.com">
     <title>LOGIN</title>
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/login.css">
@@ -83,13 +86,62 @@ if(isset($_SESSION['id'])){
                 <div class="signup">
                     <a href="signup.php">Signup?</a>
                 </div>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
             
         </div>
     </div>
+   
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
-    
+    <a href="#" onclick="signOut();">Sign out</a>
+
     
 </body>
 </html>
+
+<script>
+    // function onSignIn(googleUser) {
+    //     // note that this needs a SSL certificate
+    //     var id_token = googleUser.getAuthResponse().id_token;
+    //     // ajax
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.open('POST', 'googlevalidation.php');
+    //     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    //     xhr.onload = function() {
+    //     console.log('Signed in as: ' + xhr.responseText);
+    //     };
+    //     xhr.send('idtoken=' + id_token);
+    // console.log(id_token);
+    // }
+    function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        // pass this through ajax (googlevalidation.php)
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'googlevalidation.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+        console.log('Signed in as: ' + xhr.responseText);
+        };
+        xhr.send('id=' + profile.getId()+'&fullname='+profile.getName()+'&givename='+profile.getGivenName()+'&familyname='+profile.getFamilyName()+'&ImageURL='+profile.getImageUrl()+'&email='+profile.getEmail()+'&type=google');
+    }
+
+</script>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        location.reload()
+      console.log('User signed out.');
+    });
+  }
+</script>

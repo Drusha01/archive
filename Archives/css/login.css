@@ -1,6 +1,6 @@
 div.login-container{
     width: 450px;
-    height: 370px;
+    height: 420px;
     border-radius: 10px;
     margin-left: calc((100vw / 2) - (450px / 2 ));
     margin-top: calc((100vh / 2) - (450px / 2 ));
@@ -101,4 +101,9 @@ div.signup a{
 }
 form{
     background-color: gray;
+}
+
+div.g-signin2{
+    width: 50px;
+    margin-left:calc((450px / 2 ) - 50px);;
 }
