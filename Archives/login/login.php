@@ -46,6 +46,7 @@ if(isset($_SESSION['id'])){
 
 }
 
+error
 
 ?>
 
